@@ -15,7 +15,7 @@ public class Bakery {
     }
 
     this.bread = mass;
-    System.out.println("BAKING:" + this.bread);
+    System.out.println("BAKING: " + this.bread);
     this.available = true;
     notifyAll();
   }
@@ -30,7 +30,7 @@ public class Bakery {
       }
     }
 
-    System.out.println("EATING BREAD DELICIOUS");
+    System.out.println("EATING BREAD DELICIOUS " + this.bread);
     this.available = false;
     notifyAll();
     return bread;

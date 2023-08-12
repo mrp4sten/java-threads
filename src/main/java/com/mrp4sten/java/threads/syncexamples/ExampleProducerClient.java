@@ -1,13 +1,30 @@
 package com.mrp4sten.java.threads.syncexamples;
 
-import com.mrp4sten.java.threads.syncexamples.runnable.Baker;
-import com.mrp4sten.java.threads.syncexamples.runnable.Client;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ExampleProducerClient {
   public static void main(String[] args) {
     Bakery bakery = new Bakery();
-    new Thread(new Baker(bakery)).start();
-    new Thread(new Client(bakery)).start();
+
+    // Producer
+    new Thread(() -> {
+      for (int i = 0; i < 10; i++) {
+        bakery.bake("Bread number : #" + i);
+        try {
+          Thread.sleep(ThreadLocalRandom.current().nextInt(500, 2000));
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+          Thread.currentThread().interrupt();
+        }
+      }
+    }).start();
+
+    // Client
+    new Thread(() -> {
+      for (int i = 0; i < 10; i++) {
+        bakery.eat();
+      }
+    }).start();
   }
 
 }
