@@ -2,16 +2,18 @@ package com.mrp4sten.java.threads.executorexample;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 public class ExecutorFutureExample {
   public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException {
-    ExecutorService executor = Executors.newFixedThreadPool(3);
+    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
 
+    System.out.println("Pool Size: " + executor.getPoolSize());
+    System.out.println("Task Size: " + executor.getQueue().size());
     Callable<String> task = () -> {
       System.out.println("Starting Task");
       try {
@@ -34,6 +36,9 @@ public class ExecutorFutureExample {
     Future<String> result = executor.submit(task);
     Future<String> resultTwo = executor.submit(task);
     Future<Integer> resultThree = executor.submit(taskTwo);
+
+    System.out.println("Pool Size: " + executor.getPoolSize());
+    System.out.println("Task Size: " + executor.getQueue().size());
 
     executor.shutdown();
 
