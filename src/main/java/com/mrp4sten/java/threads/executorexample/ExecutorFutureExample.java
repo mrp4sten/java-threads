@@ -13,7 +13,7 @@ public class ExecutorFutureExample {
     ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
 
     System.out.println("Pool Size: " + executor.getPoolSize());
-    System.out.println("Task Size: " + executor.getQueue().size());
+    System.out.println("Task Queue Size: " + executor.getQueue().size());
     Callable<String> task = () -> {
       System.out.println("Starting Task");
       try {
@@ -38,7 +38,7 @@ public class ExecutorFutureExample {
     Future<Integer> resultThree = executor.submit(taskTwo);
 
     System.out.println("Pool Size: " + executor.getPoolSize());
-    System.out.println("Task Size: " + executor.getQueue().size());
+    System.out.println("Task Queue Size: " + executor.getQueue().size());
 
     executor.shutdown();
 
